@@ -18,7 +18,7 @@ abstract class Isar {
   }
 
   /// The version of the Isar library.
-  static const version = '3.1.8';
+  static const version = '3.3.0-dev.3';
 
   /// Smallest valid id.
   static const Id minId = isarMinId;
@@ -306,10 +306,7 @@ abstract class Isar {
     Map<IsarAbi, String> libraries = const {},
     bool download = false,
   }) async {
-    await initializeCoreBinary(
-      libraries: libraries,
-      download: download,
-    );
+    await initializeCoreBinary(libraries: libraries, download: download);
   }
 
   /// Split a String into words according to Unicode Annex #29. Only words
@@ -325,14 +322,11 @@ abstract class Isar {
 /// should only be used if absolutely necessary.
 class CompactCondition {
   /// Compaction will happen if all of the specified conditions are true.
-  const CompactCondition({
-    this.minFileSize,
-    this.minBytes,
-    this.minRatio,
-  }) : assert(
-          minFileSize != null || minBytes != null || minRatio != null,
-          'At least one condition needs to be specified.',
-        );
+  const CompactCondition({this.minFileSize, this.minBytes, this.minRatio})
+    : assert(
+        minFileSize != null || minBytes != null || minRatio != null,
+        'At least one condition needs to be specified.',
+      );
 
   /// The minimum size in bytes of the database file to trigger compaction. It
   /// is highly  discouraged to trigger compaction solely on this condition.
